@@ -3,7 +3,7 @@ import java.io.*;
 public class Queue
 {
   public Node head;
-  public Node tail;
+  public Node til;
   public int size;
   static Scanner input = new Scanner(System.in);
   static String[] namelog = new String[100];
@@ -13,6 +13,7 @@ public class Queue
   static String[] actionlogcopy = new String[100];
   static float[] balancelogcopy = new float[100];
   static int counter = 0;
+  
   public Queue()
   {
     this.head = null;
@@ -20,6 +21,7 @@ public class Queue
     this.size = 0;
 	
   }
+
     public void Add(String input){
   	Node newNode = new Node();
     newNode.name = input;
@@ -36,6 +38,11 @@ public class Queue
     }
   	this.size++;
   }
+    /**
+	 * @param input takes the name of the user
+	 * @param balance takes the starting balance of the user
+	 * The method creates a new user and adds 1 to the counter
+	 */
     public void AddNameBal(String input, float balance){
   	Node newNode = new Node();
     newNode.name = input;
@@ -56,6 +63,11 @@ public class Queue
 	
   	this.size++;
   }
+    /**
+	 * @param input takes the name of the user
+	 * @param balance takes the starting balance of the user
+	 * The method is a clone of AddNameBal however it does not add 1 to the counter
+	 */
     public void AddNameBalA(String input, float balance){
   	Node newNode = new Node();
     newNode.name = input;
@@ -74,7 +86,10 @@ public class Queue
 	
   	this.size++;
   }
-	//Deletes the current user
+	/**
+	 * Deletes the current user;
+	 */
+	
   public void DelCurUser()
   {
 	counter++;
@@ -105,7 +120,9 @@ public class Queue
     }
 
   }
-  //Displays contents of the list
+  /**
+  *Displays contents of the list
+  */
   public void Display()
   {
     Node discurrent;
@@ -124,7 +141,9 @@ public class Queue
       System.out.println("There are no users.");
     }
   }
-  
+  /**
+  * Changes the user by copying the current head and adding it to tail, and then deleting the head
+  */
 	public void ChangeUser(){
 	  Scanner input = new Scanner(System.in);
 		if(head != null){
@@ -144,10 +163,16 @@ public class Queue
 			System.out.println("There are no users");
 		}
   }
+  /**
+  * The method for copying the head to the tail and deleting the head
+  */
 	public void backoftheline(){
 	  AddNameBalA(head.name, head.bal);
 	  DelCurUserA();
 	}
+	/**
+	* The method for sending money to another "user";
+	*/
 	public void SendMoney(){
 		System.out.println("How much money would you like to send?");
 		float amount = input.nextFloat();
@@ -170,11 +195,17 @@ public class Queue
 		counter++;
 		AddToLog(head.name, amount, "Recieved Money");
 	}
+	/**
+	* Adds to an array which logs specific actions done
+	*/
 	public void AddToLog(String name, float balance, String Action){
 		namelog[counter]=name;
 		actionlog[counter]=Action;
 		balancelog[counter]=balance;
 	}
+	/**
+	* Displays the log
+	*/
 	public void ViewLog(){
 		System.out.println("Total logs: "+counter);
 			for(int i = 1;i <= counter ; i++){
@@ -183,6 +214,9 @@ public class Queue
 				System.out.println(balancelog[i]);
 			}
   }
+  /**
+	* Searches for specific users in the log
+	*/
 	public static void Search(){
 		System.out.println("Search by name: *case sensitive*");
 		String searchVal = input.nextLine();
@@ -194,6 +228,9 @@ public class Queue
 			}
 		}
 	}
+	/**
+	* Displays te log in ascending order depending on the value sent, recieved, or registered with
+	*/
 	public static void ViewLogSortedAsc(){
 		System.arraycopy(balancelog,0,balancelogcopy,0,balancelog.length);
 		System.arraycopy(namelog,0,namelogcopy,0,namelog.length);
@@ -221,7 +258,9 @@ public class Queue
 				System.out.println(balancelogcopy[i]);
 			}		
 	}
-
+    /**
+	* Prompts enter key
+	*/
 	public static void promptEnterKey(){
 		System.out.println("Press ENTER to continue...");
 		Scanner scanner = new Scanner(System.in);
