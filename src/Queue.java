@@ -3,7 +3,7 @@ import java.io.*;
 public class Queue
 {
   public Node head;
-  public Node til;
+  public Node tail;
   public int size;
   static Scanner input = new Scanner(System.in);
   static String[] namelog = new String[100];
