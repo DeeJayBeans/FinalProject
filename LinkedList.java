@@ -24,6 +24,7 @@ public class LinkedList{
 		else{
 			head = tail = a;
 		}
+		this.size++;
 	}
 	
 	public void SendMoney(Node fromdaque){
@@ -32,19 +33,18 @@ public class LinkedList{
 		float amount = fromdaque.bal;
 		float fee = amount*0.01f;
 		float total = amount+fee;
-		boolean check = false;
+		
 		Node discurrent;
 		discurrent = this.head;
 		if(head != null){
 			if(amount < 0){
-				for(int i = 0; discurrent != null; i++){
+				for(int i = 0; i < this.size; i++){
 					if(discurrent.accnum == sender){
-						if(discurrent.bal > ((total*-1f))){
+						if(discurrent.bal > ((total)*-1f)){
 							discurrent.bal = discurrent.bal + amount + fee;
-							check = true;
 						}
 						else{
-							System.out.println("Bounced. Insufficient Funds");
+							System.out.println("Bounced. Insufficient funds");
 						}
 						break;
 					}
@@ -53,13 +53,18 @@ public class LinkedList{
 			}
 			else{
 			discurrent = this.head;
-				for(int i = 0; discurrent != null; i++){
-					if(discurrent.accnum == reciever && check){
-						discurrent.bal = discurrent.bal + amount;
+				for(int i = 0; i < this.size; i++){
+					if(discurrent.accnum == reciever){
+							if(discurrent.bal > ((total))){
+							discurrent.bal = discurrent.bal + amount;
+							}
+							else{
+								System.out.println("Bounced. Sender had insufficient funds");
+							}
 					}
 					discurrent = discurrent.link;
 				}
-			}				
+			}		
 		}
 	}
 	
@@ -67,7 +72,7 @@ public class LinkedList{
 		Node discurrent;
 		discurrent = this.head;
 		if(head != null){
-			for(int i = 0; discurrent != null; i++){
+			for(int i = 0; i < this.size; i++){
 				System.out.println(discurrent.accnum + " - " + discurrent.name);
 				System.out.println("    " + discurrent.bal);				
 				System.out.println("    #" + discurrent.accnum);
